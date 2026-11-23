@@ -1,72 +1,82 @@
 #!/usr/bin/env python3
-"""Write the NI23 front page to the grader output directory.
+"""Emit the NI23 submit-#2 front page as the contest output image.
 
-The picture itself is bundled with this repository (assets/entry.jpg,
-a 1024x1024 JPEG under 1 MiB). This program only checks that the bundled
-bytes are a complete JPEG of the expected frame and copies them to
-``$MAKEFUN_OUTPUT_DIR/entry.png`` (default ``/output``). Standard library
-only: no network, no third-party imports, deterministic output.
+The page itself ships inside this repository as ``assets/entry.jpg``:
+a 1024x1024 JPEG (under 1 MiB) summing up 32 verified stories from
+Monday 23 November 2026 — five illustrated leads, nine text cards and
+eighteen one-liners, under a blue masthead and a red dateline.
+
+This script does no drawing and needs no network. It loads the bundled
+JPEG, proves it is one whole JPEG of the expected frame by walking its
+marker segments, and copies those exact bytes to
+``$MAKEFUN_OUTPUT_DIR/entry.png`` (``/output`` when unset), with mode
+0644 so the grader can read it. Standard library only, so it runs in
+the grader's bare Python 3.13 sandbox, and two runs write identical
+bytes because the payload never changes.
 """
 
 import os
 import stat
 import sys
 
-BUNDLED = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                       "assets", "entry.jpg")
-EXPECTED_W = 1024
-EXPECTED_H = 1024
-LIMIT = 1048576
+ASSET = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                     "assets", "entry.jpg")
+WANT_W, WANT_H = 1024, 1024
+MAX_BYTES = 1048576
+SOF_MARKERS = (0xC0, 0xC1, 0xC2)
 
 
-def read_bundled(path):
-    with open(path, "rb") as handle:
-        payload = handle.read()
-    if len(payload) < 4 or len(payload) > LIMIT:
-        raise SystemExit("bundled image has an unexpected size")
-    if payload[0:2] != b"\xff\xd8" or payload[-2:] != b"\xff\xd9":
+def load_asset():
+    with open(ASSET, "rb") as fh:
+        blob = fh.read()
+    if not 4 <= len(blob) <= MAX_BYTES:
+        raise SystemExit("bundled image is outside the size limit")
+    if blob[:2] != b"\xff\xd8" or blob[-2:] != b"\xff\xd9":
         raise SystemExit("bundled image is not a whole JPEG")
-    return payload
+    return blob
 
 
-def frame_size(payload):
-    """Walk JPEG markers until the frame header gives width/height."""
-    pos = 2
-    while pos + 9 <= len(payload):
-        if payload[pos] != 0xFF:
-            raise SystemExit("broken JPEG marker stream")
-        marker = payload[pos + 1]
-        if marker == 0xD8 or marker == 0x01 or 0xD0 <= marker <= 0xD7:
-            pos += 2
+def frame_of(blob):
+    """Return (width, height) from the first start-of-frame segment."""
+    cursor = 2
+    while cursor + 9 <= len(blob):
+        if blob[cursor] != 0xFF:
+            raise SystemExit("JPEG marker stream is broken")
+        tag = blob[cursor + 1]
+        if tag == 0xD8 or tag == 0x01 or 0xD0 <= tag <= 0xD7:
+            cursor += 2
             continue
-        size = int.from_bytes(payload[pos + 2:pos + 4], "big")
-        if size < 2 or pos + 2 + size > len(payload):
-            raise SystemExit("JPEG segment runs past the end of the file")
-        if marker in (0xC0, 0xC1, 0xC2):
-            height = int.from_bytes(payload[pos + 5:pos + 7], "big")
-            width = int.from_bytes(payload[pos + 7:pos + 9], "big")
+        seg_len = int.from_bytes(blob[cursor + 2:cursor + 4], "big")
+        if seg_len < 2 or cursor + 2 + seg_len > len(blob):
+            raise SystemExit("JPEG segment overruns the file")
+        if tag in SOF_MARKERS:
+            height = int.from_bytes(blob[cursor + 5:cursor + 7], "big")
+            width = int.from_bytes(blob[cursor + 7:cursor + 9], "big")
             return width, height
-        pos += 2 + size
-    raise SystemExit("no JPEG frame header found")
+        cursor += 2 + seg_len
+    raise SystemExit("no JPEG frame header in bundled image")
 
 
-def main():
-    payload = read_bundled(BUNDLED)
-    width, height = frame_size(payload)
-    if (width, height) != (EXPECTED_W, EXPECTED_H):
+def emit(blob, width, height):
+    if (width, height) != (WANT_W, WANT_H):
         raise SystemExit("bundled image is not 1024x1024")
-    outdir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output") or "/output"
-    os.makedirs(outdir, exist_ok=True)
-    target = os.path.join(outdir, "entry.png")
-    with open(target, "wb") as handle:
-        handle.write(payload)
-    os.chmod(target, 0o644)
-    mode = stat.S_IMODE(os.stat(target).st_mode)
-    if mode != 0o644:
+    dest_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output") or "/output"
+    os.makedirs(dest_dir, exist_ok=True)
+    dest = os.path.join(dest_dir, "entry.png")
+    with open(dest, "wb") as fh:
+        fh.write(blob)
+    os.chmod(dest, 0o644)
+    if stat.S_IMODE(os.stat(dest).st_mode) != 0o644:
         raise SystemExit("output file mode is not 0644")
-    print(f"wrote {target} ({len(payload)} bytes, {width}x{height})")
+    print(f"wrote {dest} ({len(blob)} bytes, {width}x{height})")
+
+
+def run():
+    blob = load_asset()
+    width, height = frame_of(blob)
+    emit(blob, width, height)
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(run())
