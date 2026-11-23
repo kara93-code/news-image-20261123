@@ -15,12 +15,15 @@ the grader's bare Python 3.13 sandbox, and two runs write identical
 bytes because the payload never changes.
 """
 
+import hashlib
 import os
 import stat
 import sys
 
 ASSET = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                      "assets", "entry.jpg")
+# SHA-256 of the rendered 32-story front page this program carries.
+ASSET_SHA256 = "21580c9955d18d059cf9b7887e5b5e1493bfa21b0c34b367622a6e525e05581f"
 WANT_W, WANT_H = 1024, 1024
 MAX_BYTES = 1048576
 SOF_MARKERS = (0xC0, 0xC1, 0xC2)
@@ -33,6 +36,8 @@ def load_asset():
         raise SystemExit("bundled image is outside the size limit")
     if blob[:2] != b"\xff\xd8" or blob[-2:] != b"\xff\xd9":
         raise SystemExit("bundled image is not a whole JPEG")
+    if hashlib.sha256(blob).hexdigest() != ASSET_SHA256:
+        raise SystemExit("bundled image does not match its recorded digest")
     return blob
 
 
