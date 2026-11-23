@@ -1,30 +1,36 @@
-# news-image-20261123
+# Monday 23 November 2026 — the world in one picture
 
 [![make.fun · news-image-20261123](https://make.fun/badge/news-image-20261123.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 [![rank](https://make.fun/badge/news-image-20261123/kara93-code/news-image-20261123/rank.svg)](https://make.fun/bounty/news-image-20261123/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 [![reward](https://make.fun/badge/news-image-20261123/kara93-code/news-image-20261123/reward.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 
-One hybrid front page summing up the world's news of Monday 23 November
-2026: COP31 breaks down without an overall deal, the Democrats take the
-House in a historic majority, and tensions simmer around the Strait of
-Hormuz — 32 verified stories in all. Five illustrated leads anchor the
-page, nine text cards and eighteen one-liners carry the rest, across seven
-regions, under a blue masthead and a red dateline.
+A single front page for Monday 23 November 2026, drawn as one picture:
+COP31 closing without an overall deal, a historic Democratic majority in
+the US House, and the tanker incident in the Gulf of Oman lead the page.
+Under them, 32 stories from that Monday — climate talks, the US–Iran
+standoff, a factory fire in Indonesia, Nepal's prime minister in New
+Delhi, a record Test innings in Wellington, a Lisbon cost-of-living
+march, and more — spread over seven regions, with the date printed in red
+across the top so the day is never in doubt.
 
-Submit #2 builds on submit #1 (24 stories, round 1: 59.02%): the five
-leads are kept, the factory-fire lead now carries the Reuters toll
-reported on 23 November (24 killed, dozens missing), and nine fresh
-23 November stories join as one-liners — Ukraine sinking a Russian
-corvette off Libya, Tajikistan leaving the ICC, Zambia's treason charge,
-Armenia's draft constitution, India's $1.62bn aid to Nepal, Kenya–DR
-Congo restoring ties, Belgium's austerity strike, the CrowdStrike–
-Zscaler deal, and Bangladesh's vow over Hasina's return.
+This is the second version of the entry. The first carried 24 stories and
+scored 59.02% in the opening blind round, outside the prize places, so
+this rebuild keeps its five illustrated leads and adds nine more stories
+first reported on 23 November: Ukraine's corvette sinking off Libya,
+Tajikistan leaving the ICC, a treason charge in Zambia, Armenia's draft
+constitution, India's $1.62bn package for Nepal, Kenya and DR Congo
+restoring ties, the Belgian airport strike, CrowdStrike's $44bn Zscaler
+deal, and Bangladesh's vow on Hasina's return. The factory-fire lead now
+carries the toll confirmed that day: 24 killed, dozens still missing.
 
-The layout keeps the pictures up front and the text tight: every card
-headline fits in two lines, every card body in one, every one-liner in
-one, so nothing is cut off mid-phrase. The five illustrations are
-original AI-generated artwork with no text inside them; every story is
-dated Monday 23 November 2026.
+## What is in here
+
+- `main.py` — the entry program. It checks the bundled picture (whole
+  JPEG, 1024×1024, digest, under 1 MiB) and copies it to the output.
+- `assets/entry.jpg` — the finished front page, 1024×1024, drawn on the
+  build machine from five original AI-generated illustrations (no text
+  inside the artwork) and the verified headlines.
+- `LICENSE` — MIT. `.makefun/owner.json` — the claim file for this entry.
 
 ## Run it
 
@@ -32,10 +38,13 @@ dated Monday 23 November 2026.
 python3 main.py
 ```
 
-The program validates the bundled hybrid (`assets/entry.jpg`, 1024×1024
-JPEG, under 1 MiB: JPEG markers, frame size) and copies it to
-`$MAKEFUN_OUTPUT_DIR/entry.png` (default `/output`). Python 3.13,
-standard library only, no network. Two runs write identical bytes.
+That writes `$MAKEFUN_OUTPUT_DIR/entry.png` (default `/output`). Python
+3.13, standard library only, no network. Running it twice writes the
+same bytes both times — check it the way the grader does, by running it
+into two folders and comparing the files: they must match byte for byte.
+
+Every story on the page is dated Monday 23 November 2026 and was checked
+against Reuters, BBC, AP, Al Jazeera and Euronews reporting from that day.
 
 ---
 
