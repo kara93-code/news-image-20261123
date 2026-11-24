@@ -1,27 +1,34 @@
-# Monday 23 November 2026 — the world in one picture
+# Washington flips, climate talks collapse — Monday 23 November 2026 in one picture
 
 [![make.fun · news-image-20261123](https://make.fun/badge/news-image-20261123.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 [![rank](https://make.fun/badge/news-image-20261123/kara93-code/news-image-20261123/rank.svg)](https://make.fun/bounty/news-image-20261123/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 [![reward](https://make.fun/badge/news-image-20261123/kara93-code/news-image-20261123/reward.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
 
-A single front page for Monday 23 November 2026, drawn as one picture:
-COP31 closing without an overall deal, a historic Democratic majority in
-the US House, and the tanker incident in the Gulf of Oman lead the page.
-Under them, 32 stories from that Monday — climate talks, the US–Iran
-standoff, a factory fire in Indonesia, Nepal's prime minister in New
-Delhi, a record Test innings in Wellington, a Lisbon cost-of-living
-march, and more — spread over seven regions, with the date printed in red
-across the top so the day is never in doubt.
+One front page for Monday 23 November 2026, drawn as a single picture
+with a new angle on the day: the Democrats' historic House majority —
+the largest since 1992 — leads the page, COP31 closing without an
+overall deal runs second, and the tanker incident in the Gulf of Oman
+follows. The red kicker under the date says what the day was:
+"CLIMATE TALKS COLLAPSE • WASHINGTON FLIPS • HORMUZ SIMMERS". Under
+the five illustrated leads sit nine short text cards and sixteen
+one-line items — 30 stories from that Monday across seven regions,
+from the US–Iran standoff and the factory fire in Indonesia to Nepal's
+prime minister in New Delhi, a record Test innings in Wellington and
+a Lisbon cost-of-living march — with the date printed in red across
+the top so the day is never in doubt.
 
-This is the second version of the entry. The first carried 24 stories and
-scored 59.02% in the opening blind round, outside the prize places, so
-this rebuild keeps its five illustrated leads and adds nine more stories
-first reported on 23 November: Ukraine's corvette sinking off Libya,
-Tajikistan leaving the ICC, a treason charge in Zambia, Armenia's draft
-constitution, India's $1.62bn package for Nepal, Kenya and DR Congo
-restoring ties, the Belgian airport strike, CrowdStrike's $44bn Zscaler
-deal, and Bangladesh's vow on Hasina's return. The factory-fire lead now
-carries the toll confirmed that day: 24 killed, dozens still missing.
+This is the third version of the entry, built for the final blind
+round. The first carried 24 stories and scored 59.02% in round 1;
+the second squeezed in 32 and fell to 47.23% in round 2 — both outside
+the prize places. The cramped second version taught the lesson: at
+preview size, dense small type reads as grey texture. So this rebuild
+keeps the proven five-illustration hybrid frame but changes the angle
+and gives the words room to breathe — a new lead order, a kicker line,
+larger type everywhere, taller lead images, and 30 stories instead of
+32 squeezed ones. The two weakest items from the second version are
+gone (a snooker title and an oil-price line that duplicated the Hormuz
+lead); the factory-fire lead still carries the toll confirmed that
+day: 24 killed, dozens still missing.
 
 ## What is in here
 

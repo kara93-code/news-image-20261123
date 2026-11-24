@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-"""Round-2 front page for Monday 23 November 2026.
+"""Final-round front page for Monday 23 November 2026.
 
-The page is a single 1024x1024 picture that packs the day's world news
-into one frame: five illustrated lead stories, nine short text cards and
-eighteen one-line items, 32 stories across seven regions, under a blue
-masthead and a red dateline. The picture was drawn on the build machine
-and ships with this repository as ``assets/entry.jpg``.
+One 1024x1024 picture sums up the day: a historic Democratic majority
+in the US House leads the page, COP31 closing without an overall deal
+runs second, and a tanker incident in the Gulf of Oman follows. Under
+the blue masthead and the red dateline — with the kicker "CLIMATE TALKS
+COLLAPSE • WASHINGTON FLIPS • HORMUZ SIMMERS" — sit five illustrated
+lead stories, nine short text cards and sixteen one-line items: 30
+stories across seven regions, every one of them dated that Monday.
 
-This program only carries that picture to the grader's output. It reads
-the bundled JPEG, checks it is whole (start/end markers, a frame header
-saying 1024x1024, the recorded SHA-256 digest, under 1 MiB), then writes
-those exact bytes to ``$MAKEFUN_OUTPUT_DIR/entry.png`` (``/output`` when
-the variable is unset) with mode 0644. Standard library only, no
-network, no drawing at run time: two runs produce identical bytes.
+The picture was drawn on the build machine and ships with this
+repository as ``assets/entry.jpg``. This program only carries it to the
+grader's output: it reads the bundled JPEG, proves it is whole (start
+and end markers, a frame header saying 1024x1024, the recorded SHA-256
+digest, under 1 MiB), then writes those exact bytes to
+``$MAKEFUN_OUTPUT_DIR/entry.png`` (``/output`` when the variable is
+unset) with mode 0644. Standard library only, no network, no drawing
+at run time: two runs produce identical bytes.
 """
 
 import hashlib
@@ -23,7 +27,7 @@ import sys
 BASE = os.path.dirname(os.path.abspath(__file__))
 BUNDLED = os.path.join(BASE, "assets", "entry.jpg")
 EXPECTED_DIGEST = (
-    "8f1ef81aec64626882da56c8e96d2a8451cd6d8476cdb29b31e42d6d99cb8ea1"
+    "c1392242ed10d1a9448d062b1d4fc4b02511c36ccaac698120b4de98f828cf3b"
 )
 EXPECT_W = 1024
 EXPECT_H = 1024
